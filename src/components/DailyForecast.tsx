@@ -64,9 +64,9 @@ const DailyForecast: React.FC<DailyForecastProps> = ({
           } = day;
 
           return (
-            <AnimatePresence mode="wait">
+            <AnimatePresence key={`${location.name}-${index}`} mode="wait">
               <motion.div
-                key={location.name}
+                key={`${location.name}-${index}`}
                 initial="hidden"
                 animate={selectedDay === index ? "selected" : "visible"}
                 exit="exit"

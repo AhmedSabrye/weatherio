@@ -31,7 +31,6 @@ function App() {
   };
 
   useGeolocation({ handleSearchQuery });
-  console.log(weatherData);
   return (
     <div className="container mx-auto my-4">
       {/* <LocationHeader
