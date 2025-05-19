@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useRef } from "react";
 import type { HourForecast, WeatherLocation } from "../types/allTypes";
 import { FaThermometerHalf, FaWind } from "react-icons/fa";
 import { CiCloudDrizzle } from "react-icons/ci";
@@ -17,6 +17,16 @@ const HourlyForecast: React.FC<HourlyForecastProps> = ({
 }) => {
   const now = new Date();
   const currentHour = now.getHours();
+  const hourlyContainer = useRef<HTMLDivElement>(null);
+  const currentHourRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (hourlyContainer.current && currentHourRef.current) {
+      hourlyContainer.current.scrollLeft =
+        currentHourRef.current.offsetLeft -
+        hourlyContainer.current.offsetWidth / 2;
+    }
+  }, [selectedDay]);
 
   if (hourlyData.length === 0) {
     return <NoHourlyData />;
@@ -27,6 +37,7 @@ const HourlyForecast: React.FC<HourlyForecastProps> = ({
       <h3 className="text-2xl mb-3 text-dark fw-semibold">Hourly Forecast</h3>
       <AnimatePresence mode="wait">
         <motion.div
+          ref={hourlyContainer}
           key={`${selectedDay}-${location.name}`}
           className="flex overflow-x-auto overflow-y-hidden p-3 gap-3"
           initial="hidden"
@@ -67,6 +78,7 @@ const HourlyForecast: React.FC<HourlyForecastProps> = ({
 
             return (
               <motion.div
+                ref={index === currentHour ? currentHourRef : null}
                 key={`${selectedDay}-${index}`}
                 variants={{
                   hidden: { y: 50, opacity: 0 },
