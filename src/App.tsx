@@ -32,7 +32,7 @@ function App() {
 
   useGeolocation({ handleSearchQuery });
   return (
-    <div className="container mx-auto my-4">
+    <div className="container mx-auto my-4 px-4 md:px-0">
       {/* <LocationHeader
         locationText={
           weatherData?.location.name
@@ -60,7 +60,12 @@ function App() {
         <div className="weather-container">
           <CurrentWeather key={searchQuery} weatherData={weatherData} />
 
-          <DailyForecast selectedDay={selectedDay} forecastData={weatherData.forecast.forecastday} location={weatherData.location} onDaySelect={handleDaySelection} />
+          <DailyForecast
+            selectedDay={selectedDay}
+            forecastData={weatherData.forecast.forecastday}
+            location={weatherData.location}
+            onDaySelect={handleDaySelection}
+          />
           <HourlyForecast
             selectedDay={selectedDay}
             location={weatherData.location}
